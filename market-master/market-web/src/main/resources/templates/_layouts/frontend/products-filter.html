@@ -1,0 +1,27 @@
+<!--
+    Опции фильтрации и сортировки товаров.
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<
+<div th:fragment="filter">
+	<div class="pull-right">
+		<div class="btn-group">
+			<span class="btn btn-xs btn-default disabled">на странице</span>
+			<button class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" type="button">
+				<span th:text="${pageSizeOptions.get(currentPageSize)}"></span>&nbsp;
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu dropdown-menu-right"
+				th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+				<li th:each="newSize : ${pageSizeOptions}" style="width:auto;">
+					<a th:href="@{${urlBuilder.replaceQueryParam('size', newSize.key).replaceQueryParam('page', 1).build().toUriString()}}"
+					   th:text="${newSize.value}"></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</body>
+</html>
